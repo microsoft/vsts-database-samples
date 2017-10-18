@@ -1,0 +1,688 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DataSchemaModel FileFormatVersion="1.2" SchemaVersion="2.4" DspName="Microsoft.Data.Tools.Schema.Sql.Sql120DatabaseSchemaProvider" CollationLcid="1033" CollationCaseSensitive="False" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+	<Header>
+		<CustomData Category="AnsiNulls">
+			<Metadata Name="AnsiNulls" Value="True" />
+		</CustomData>
+		<CustomData Category="QuotedIdentifier">
+			<Metadata Name="QuotedIdentifier" Value="True" />
+		</CustomData>
+		<CustomData Category="CompatibilityMode">
+			<Metadata Name="CompatibilityMode" Value="120" />
+		</CustomData>
+		<CustomData Category="Reference" Type="Assembly">
+			<Metadata Name="LogicalName" Value="TestDatabase.dll" />
+			<Metadata Name="FileName" Value="C:\USERS\CHANDRUR\DOCUMENTS\VISUAL STUDIO 2015\PROJECTS\TESTDATABASE\OBJ\DEBUG\TESTDATABASE.DLL" />
+			<Metadata Name="AssemblyName" Value="TestDatabase" />
+			<Metadata Name="PermissionSet" Value="SAFE" />
+			<Metadata Name="Owner" Value="" />
+			<Metadata Name="GenerateSqlClrDdl" Value="True" />
+			<Metadata Name="IsVisible" Value="True" />
+			<Metadata Name="IsModelAware" Value="True" />
+			<Metadata Name="SkipCreationIfEmpty" Value="True" />
+			<Metadata Name="AssemblySymbolsName" Value="C:\Users\chandrur\Documents\Visual Studio 2015\Projects\TestDatabase\obj\Debug\TestDatabase.pdb" />
+		</CustomData>
+		<CustomData Category="SqlCmdVariables" Type="SqlCmdVariable" />
+	</Header>
+	<Model>
+		<Element Type="SqlDatabaseOptions">
+			<Property Name="Collation" Value="SQL_Latin1_General_CP1_CI_AS" />
+			<Property Name="IsAnsiNullDefaultOn" Value="True" />
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Property Name="IsAnsiWarningsOn" Value="True" />
+			<Property Name="IsArithAbortOn" Value="True" />
+			<Property Name="IsConcatNullYieldsNullOn" Value="True" />
+			<Property Name="IsTornPageProtectionOn" Value="False" />
+			<Property Name="IsFullTextEnabled" Value="True" />
+			<Property Name="PageVerifyMode" Value="3" />
+			<Property Name="DefaultLanguage" Value="" />
+			<Property Name="DefaultFullTextLanguage" Value="" />
+			<Relationship Name="DefaultFilegroup">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[PRIMARY]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlPrimaryKeyConstraint" Name="[dbo].[PK_tbl_Product]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[tbl_Product].[ProductId]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[tbl_Product]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="5" />
+		</Element>
+		<Element Type="SqlPrimaryKeyConstraint" Name="[dbo].[PK_tbl_ProductPrice]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[tbl_ProductPrice].[ProductId]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[tbl_ProductPrice].[CountryCode]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[tbl_ProductPrice]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="6" />
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[prc_CreateProduct]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+SET XACT_ABORT ON
+SET NOCOUNT ON
+
+DECLARE @productId  INT
+BEGIN TRAN
+
+INSERT  tbl_Product(Name)
+SELECT  @name
+
+SELECT  @productId = @@IDENTITY
+
+INSERT  tbl_ProductPrice(ProductId, CountryCode, Price)
+SELECT  @productId,
+        CountryCode, 
+        Price
+FROM    @prices
+
+COMMIT TRAN
+
+SELECT  @productId AS ProductId
+
+RETURN 0]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[tbl_Product]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[tbl_Product].[Name]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[prc_CreateProduct].[@name]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[tbl_ProductPrice]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[tbl_ProductPrice].[ProductId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[tbl_ProductPrice].[CountryCode]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[tbl_ProductPrice].[Price]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[prc_CreateProduct].[@prices]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[prc_CreateProduct].[@prices].[CountryCode]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[prc_CreateProduct].[@prices].[Price]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DynamicObjects">
+				<Entry>
+					<Element Type="SqlDynamicColumnSource" Name="[dbo].[prc_CreateProduct].[@prices]" Disambiguator="3">
+						<Relationship Name="Columns">
+							<Entry>
+								<Element Type="SqlSimpleColumn" Name="[dbo].[prc_CreateProduct].[@prices].[CountryCode]">
+									<Property Name="IsNullable" Value="False" />
+									<Relationship Name="TypeSpecifier">
+										<Entry>
+											<Element Type="SqlTypeSpecifier">
+												<Property Name="Length" Value="3" />
+												<Relationship Name="Type">
+													<Entry>
+														<References ExternalSource="BuiltIns" Name="[varchar]" />
+													</Entry>
+												</Relationship>
+											</Element>
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+							<Entry>
+								<Element Type="SqlSimpleColumn" Name="[dbo].[prc_CreateProduct].[@prices].[Price]">
+									<Relationship Name="TypeSpecifier">
+										<Entry>
+											<Element Type="SqlTypeSpecifier">
+												<Property Name="Scale" Value="2" />
+												<Property Name="Precision" Value="10" />
+												<Relationship Name="Type">
+													<Entry>
+														<References ExternalSource="BuiltIns" Name="[decimal]" />
+													</Entry>
+												</Relationship>
+											</Element>
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[prc_CreateProduct].[@name]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="100" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[prc_CreateProduct].[@prices]">
+						<Property Name="IsReadOnly" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References Name="[dbo].[typ_ProductPrice]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="457" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE prc_CreateProduct&#xD;&#xA;    @name    NVARCHAR(100),&#xD;&#xA;    @prices  typ_ProductPrice READONLY&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[prc_GetProduct]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+SET NOCOUNT ON
+
+SELECT  ProductId,
+        Name
+FROM    tbl_Product
+WHERE   ProductId = @productId
+
+SELECT  CountryCode,
+        Price
+FROM    tbl_ProductPrice
+WHERE   ProductId = @productId
+
+RETURN 0]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[tbl_Product]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[tbl_Product].[ProductId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[tbl_Product].[Name]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[prc_GetProduct].[@productId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[tbl_ProductPrice]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[tbl_ProductPrice].[CountryCode]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[tbl_ProductPrice].[Price]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[tbl_ProductPrice].[ProductId]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[prc_GetProduct].[@productId]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="270" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE prc_GetProduct&#xD;&#xA;    @productId  INT&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[prc_UpdateProduct]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[ 
+SET NOCOUNT     ON
+SET XACT_ABORT  ON
+
+BEGIN TRAN
+
+UPDATE  tbl_Product
+SET     Name = @name
+WHERE   ProductId = @productId
+
+MERGE   tbl_ProductPrice pp
+USING   @prices i
+ON      pp.CountryCode = i.CountryCode
+        AND pp.ProductId = @productId
+WHEN MATCHED THEN
+UPDATE SET Price = i.Price
+WHEN NOT MATCHED BY TARGET THEN
+INSERT (ProductId, CountryCode, Price)
+VALUES (@productId, i.CountryCode, i.Price)
+WHEN NOT MATCHED BY SOURCE THEN 
+DELETE;
+
+COMMIT TRAN
+
+RETURN 0]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[tbl_Product]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[tbl_Product].[Name]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[prc_UpdateProduct].[@name]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[tbl_Product].[ProductId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[prc_UpdateProduct].[@productId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[prc_UpdateProduct].[@prices]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[tbl_ProductPrice]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[tbl_ProductPrice].[CountryCode]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[prc_UpdateProduct].[@prices].[CountryCode]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[tbl_ProductPrice].[ProductId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[tbl_ProductPrice].[Price]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[prc_UpdateProduct].[@prices].[Price]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[tbl_ProductPrice].[ProductId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[tbl_ProductPrice].[CountryCode]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[prc_UpdateProduct].[@prices].[CountryCode]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[prc_UpdateProduct].[@prices].[Price]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DynamicObjects">
+				<Entry>
+					<Element Type="SqlDynamicColumnSource" Name="[dbo].[prc_UpdateProduct].[@prices]" Disambiguator="4">
+						<Relationship Name="Columns">
+							<Entry>
+								<Element Type="SqlSimpleColumn" Name="[dbo].[prc_UpdateProduct].[@prices].[CountryCode]">
+									<Property Name="IsNullable" Value="False" />
+									<Relationship Name="TypeSpecifier">
+										<Entry>
+											<Element Type="SqlTypeSpecifier">
+												<Property Name="Length" Value="3" />
+												<Relationship Name="Type">
+													<Entry>
+														<References ExternalSource="BuiltIns" Name="[varchar]" />
+													</Entry>
+												</Relationship>
+											</Element>
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+							<Entry>
+								<Element Type="SqlSimpleColumn" Name="[dbo].[prc_UpdateProduct].[@prices].[Price]">
+									<Relationship Name="TypeSpecifier">
+										<Entry>
+											<Element Type="SqlTypeSpecifier">
+												<Property Name="Scale" Value="2" />
+												<Property Name="Precision" Value="10" />
+												<Relationship Name="Type">
+													<Entry>
+														<References ExternalSource="BuiltIns" Name="[decimal]" />
+													</Entry>
+												</Relationship>
+											</Element>
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[prc_UpdateProduct].[@productId]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[prc_UpdateProduct].[@name]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="100" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[prc_UpdateProduct].[@prices]">
+						<Property Name="IsReadOnly" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References Name="[dbo].[typ_ProductPrice]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="206" />
+				<Property Name="Length" Value="838" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="/*****************************************************************************&#xD;&#xA;* Description of prc_UpdateProduct goes here&#xD;&#xA;*****************************************************************************/&#xD;&#xA;CREATE PROCEDURE prc_UpdateProduct&#xD;&#xA;    @productId      INT,&#xD;&#xA;    @name    NVARCHAR(100),&#xD;&#xA;    @prices  typ_ProductPrice READONLY   &#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlTable" Name="[dbo].[tbl_Product]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[tbl_Product].[ProductId]">
+						<Property Name="IsNullable" Value="False" />
+						<Property Name="IsIdentity" Value="True" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[tbl_Product].[Name]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="100" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[tbl_Product].[Price]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Scale" Value="2" />
+									<Property Name="Precision" Value="10" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[decimal]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="5" />
+		</Element>
+		<Element Type="SqlTable" Name="[dbo].[tbl_ProductPrice]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[tbl_ProductPrice].[ProductId]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[tbl_ProductPrice].[CountryCode]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="3" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[tbl_ProductPrice].[Price]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Scale" Value="2" />
+									<Property Name="Precision" Value="10" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[decimal]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="6" />
+		</Element>
+		<Element Type="SqlTableType" Name="[dbo].[typ_ProductPrice]">
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlTableTypeSimpleColumn" Name="[dbo].[typ_ProductPrice].[CountryCode]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="3" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="7" />
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlTableTypeSimpleColumn" Name="[dbo].[typ_ProductPrice].[Price]">
+						<Property Name="IsNullable" Value="True" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Scale" Value="2" />
+									<Property Name="Precision" Value="10" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[decimal]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Constraints">
+				<Entry>
+					<Element Type="SqlTableTypePrimaryKeyConstraint">
+						<Property Name="IsClustered" Value="True" />
+						<Relationship Name="ColumnSpecifications">
+							<Entry>
+								<Element Type="SqlTableTypeIndexedColumnSpecification">
+									<Relationship Name="Column">
+										<Entry>
+											<References Name="[dbo].[typ_ProductPrice].[CountryCode]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<AttachedAnnotation Disambiguator="7" />
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+		</Element>
+	</Model>
+</DataSchemaModel>

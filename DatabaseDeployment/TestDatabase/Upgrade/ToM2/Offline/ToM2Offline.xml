@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<scripts>
+  <script>upd_ToM2OfflinePopulateProductPrice.sql</script>
+  <script>ToM2Generated.sql</script>
+</scripts>

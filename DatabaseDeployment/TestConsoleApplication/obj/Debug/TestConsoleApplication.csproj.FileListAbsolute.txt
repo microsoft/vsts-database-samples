@@ -1,0 +1,11 @@
+C:\Users\chandrur\Documents\Visual Studio 2015\Projects\TestConsoleApplication\bin\Debug\TestConsoleApplication.exe.config
+C:\Users\chandrur\Documents\Visual Studio 2015\Projects\TestConsoleApplication\bin\Debug\TestConsoleApplication.exe
+C:\Users\chandrur\Documents\Visual Studio 2015\Projects\TestConsoleApplication\bin\Debug\TestConsoleApplication.pdb
+C:\Users\chandrur\Documents\Visual Studio 2015\Projects\TestConsoleApplication\bin\Debug\TestDataAccessLibrary.dll
+C:\Users\chandrur\Documents\Visual Studio 2015\Projects\TestConsoleApplication\bin\Debug\TestDataAccessLibrary.pdb
+C:\Users\chandrur\Documents\Visual Studio 2015\Projects\TestConsoleApplication\obj\Debug\TestConsoleApplication.csprojResolveAssemblyReference.cache
+C:\Users\chandrur\Documents\Visual Studio 2015\Projects\TestConsoleApplication\obj\Debug\TestConsoleApplication.exe
+C:\Users\chandrur\Documents\Visual Studio 2015\Projects\TestConsoleApplication\obj\Debug\TestConsoleApplication.pdb
+D:\work\DatabaseDeployment\TestConsoleApplication\bin\Debug\TestConsoleApplication.exe.config
+D:\work\DatabaseDeployment\TestConsoleApplication\obj\Debug\TestConsoleApplication.exe
+D:\work\DatabaseDeployment\TestConsoleApplication\obj\Debug\TestConsoleApplication.pdb

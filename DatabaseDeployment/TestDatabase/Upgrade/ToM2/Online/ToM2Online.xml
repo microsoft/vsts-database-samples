@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<scripts>
+  <script online="true">upd_ToM2OnlinePopulateProductPrice.sql</script>
+  <script online="false">upd_ToM2OnlineDropPriceColumnAndTrigger.sql;ToM2Generated.sql</script>
+</scripts>

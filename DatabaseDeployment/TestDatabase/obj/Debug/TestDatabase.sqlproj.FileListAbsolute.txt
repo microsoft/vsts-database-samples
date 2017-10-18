@@ -1,0 +1,9 @@
+c:\users\chandrur\documents\visual studio 2015\Projects\TestDatabase\bin\Debug\TestDatabase.dacpac
+c:\users\chandrur\documents\visual studio 2015\Projects\TestDatabase\bin\Debug\TestDatabase.dll
+c:\users\chandrur\documents\visual studio 2015\Projects\TestDatabase\bin\Debug\TestDatabase.pdb
+c:\users\chandrur\documents\visual studio 2015\Projects\TestDatabase\obj\Debug\Model.xml
+c:\users\chandrur\documents\visual studio 2015\Projects\TestDatabase\obj\Debug\refactor.xml
+c:\users\chandrur\documents\visual studio 2015\Projects\TestDatabase\obj\Debug\postdeploy.sql
+c:\users\chandrur\documents\visual studio 2015\Projects\TestDatabase\obj\Debug\predeploy.sql
+c:\users\chandrur\documents\visual studio 2015\Projects\TestDatabase\obj\Debug\TestDatabase.dll
+c:\users\chandrur\documents\visual studio 2015\Projects\TestDatabase\obj\Debug\TestDatabase.pdb
